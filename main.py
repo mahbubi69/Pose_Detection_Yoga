@@ -24,16 +24,16 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
  
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-class_dict = {0 : 'Downdog' , 1: 'Goddess', 2: 'Plank', 3 :'Tree', 4:'Warrior_2', 5 : 'tidak ada pose'}
+class_dict = {0 : 'Downdog' , 1: 'Warrior_2', 2: 'Plank', 3 :'Goddess', 4:'Tree'}
 valueInt = 0
-model = load_model('static/model/model.h5')
+model = load_model('static/data/model.h5')
  
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 # Home
-@app.route('/index.html')
+@app.route('/home.html')
 def home():
     return render_template('index.html')
 
@@ -63,9 +63,6 @@ def upload_image():
         file.save(img_path)
         
         prediction = get_output(img_path)
-
-        # valueInt = get_output_model(img_path)
-
         flash('Pose Gerakan : ' + prediction,)
         # flash('Value Accurasi : ' + predition,)
         print('Pose Gerak : ', prediction)
